@@ -57,27 +57,33 @@ $$\hat{y} = \arg\min_j \Vert{}\Omega_{\text{test}} - \Omega_j\Vert{}_2$$
 
 ## 🔬 Visual Results
 
-### Mean Face & Subspace Reconstruction
-Centering the training corpus yields the baseline "average face." As $k$ increases, higher-frequency facial features (eyes, mouth contour, lighting gradients) are reconstructed:
+### 1. Baseline & Mean Face
+Vectorizing the dataset and computing the average pixel intensity yields the global "Mean Face" $\Psi$, which acts as the centering anchor for SVD:
 
-| Mean Face Baseline | Reconstruction ($k = 3$) vs ($k = 6$) |
+| Original Sample Image (`s5/1.pgm`) | Mean Face ($\Psi$) |
 | :---: | :---: |
-| ![Mean Face](assets/mean_face.png) | ![Reconstruction Comparison](assets/reconstruction_comparison.png) |
+| ![Original Sample](assets/sample_face.png) | ![Mean Face](assets/mean_face.png) |
+
+---
+
+### 2. Subspace Projection & Face Reconstruction
+Reconstructing the face with truncated singular components ($k = 3$ vs $k = 6$). Adding the mean face back synthesizes the actual facial identity:
+
+| Subspace Components ($\sum_{i=1}^k \sigma_i u_i$) | Full Reconstruction (Components + $\Psi$) |
+| :---: | :---: |
+| ![Components without mean](assets/eigen_components.png) | ![Reconstructed Face](assets/reconstructed_face.png) |
 
 ---
 
 ## 🛡️ Robustness Against Severe Noise
-To evaluate classification stability, probe images contaminated with heavy synthetic noise were tested against the gallery subspace. 
+To evaluate classification stability, probe images contaminated with heavy synthetic additive noise were projected onto the eigen-subspace.
 
 ![Noise Robustness](assets/noise_robustness.png)
 
-Despite intense degradation (high signal corruption where local pixel details are destroyed), the global structural projection onto the primary eigenfaces successfully mapped:
+Despite high corruption where localized pixel features are destroyed, global subspace projection correctly identified:
 - `p1.jpg` $\rightarrow$ **Person 1**
 - `p2.jpg` $\rightarrow$ **Person 15**
 - `p3.jpg` $\rightarrow$ **Person 10**
-
-This demonstrates that the low-rank subspace predominantly captures dominant geometric contours while filtering out uncorrelated high-frequency noise.
-
 ---
 
 ## 📂 Repository Structure
