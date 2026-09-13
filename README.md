@@ -19,6 +19,12 @@ An implementation of facial recognition and low-rank image approximation using S
 
 ---
 
+### Dataset Setup
+This project benchmarks on the **AT&T (ORL) Database of Faces**:
+1. Download the archive from the [Cambridge University Archive](https://www.cl.cam.ac.uk/research/dtg/attarchive/facedatabase.html) ([Direct Zip Download](https://www.cl.cam.ac.uk/research/dtg/attarchive/pub/data/att_faces.zip)).
+2. Extract the subject folders (`s1`, `s2`, ...) into the `data/` directory.
+3. Test probe images are pre-packaged under `data/recognition/`.
+
 ## 📐 Mathematical Formulation
 
 ### 1. Data Matrix Formulation & Centering
